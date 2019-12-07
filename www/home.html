@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Emplyee Homepage</title>
+	    <!-- meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- custom style sheet -->
+   <link href="web/css/style.css" rel="stylesheet" type="text/css" /> 
+    <!-- /custom style sheet -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+</style>
+
+    <!-- fontawesome css -->
+    <link href="web/css/fontawesome-all.css" rel="stylesheet" />
+    <!-- /fontawesome css -->
+    <!-- google fonts-->
+    <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- /google fonts-->
+    <script src="web/script/home.js"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	<style type="text/css">
+    body{
+        background-image: url(web/images/employee.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+    }
+  /*  img {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  width:150px ;
+  height:150px;
+} */
+	</style>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-firestore.js"></script>
+<script src="/__/firebase/7.1.0/firebase-auth.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.1.0/firebase-analytics.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+</head>
+
+  <!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="index.html" class="w3-bar-item w3-button"><b>Kiran</b> Construction and Trading Company</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <nav>
+      <a href="index1.html" class="w3-bar-item w3-button">Homepage</a>
+      <a href="home.html" class="w3-bar-item w3-button">Employee Homepage</a>
+      <a href="index1.html" class="w3-bar-item w3-button">Projects</a>
+      <a href="index1.html" class="w3-bar-item w3-button">About</a>
+      <a href="index1.html" class="w3-bar-item w3-button">Contact</a>
+      <a onclick="window.location.href='index.html'" id="logout-action" class="w3-bar-item w3-button">Logout</a>
+    </nav>
+</div>
+  </div>
+</div>
+
+<body>
+    <div class="w3-container w3-padding-32" id="profile">
+    <br>
+<!--    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Profile</h3> -->
+    <h2>Welcome to the expense management portal...</h2>
+  </div>
+      <!-- Left Column -->
+    <div class="w3-third w3-center" >
+    
+      <div class=" w3-text-grey ">
+        <div class="w3-display-container">
+          <img id="image" src="web/images/profile.jpg" style="width:200px;height:200px;overflow:hidden" alt="Avatar"> 
+        </div>
+
+        <div class="w3-container">
+                   <div class=" w3-container w3-text-black">
+            <h2 id="name">Sanket Tambare</h2>
+          </div>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Employee</p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Barshi, India</p>
+          <p><i id="email"class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>sanket.tambare01@gmail.com</p>
+          <p><i id="mobile"class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>+91-7057001690</p>
+          <hr>
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    
+      <div class="w3-container w3-card  w3-margin-bottom">
+
+  <div class="w3-container w3-padding-32" id="addVoucherSection">
+    <button onclick="window.location.href='emp_home.html'">Add Voucher</button>
+  </div>
+    <div class="w3-container w3-padding-32" id="loadVoucherSection">
+    <button onclick="window.location.href='viewvoucher.html'">Load Voucher</button>
+  </div>
+
+</div>
+<!-- End right column -->
+</div>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+<script type="text/javascript">
+  // Returns the signed-in user's profile Pic URL.
+function getProfilePicUrl() {
+  return firebase.auth().currentUser.photoURL || 'web/images/profile.jpg';
+}
+
+// Returns the signed-in user's display name.
+function getUserName() {
+  return firebase.auth().currentUser.displayName;
+}
+function getPhoneNumber() {
+  return firebase.auth().currentUser.phoneNumber;
+}
+function getEmail() {
+  return firebase.auth().currentUser.email;
+}
+// Saves a new message on the Cloud Firestore.
+function updateDetails() {
+  var photoURL=getProfilePicUrl();
+  var name=getUserName();
+  var email=getEmail();
+  var mobile=getPhoneNumber();
+  document.getElementById("name").innerHTML = name;
+document.getElementById("email").innerHTML = email;
+document.getElementById("mobile").innerHTML = mobile;
+document.getElementById("image").innerHTML = photoURL;  
+  }
+</script>
+</body>
+</html>

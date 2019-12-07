@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Emplyee Homepage</title>
+	    <!-- meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- custom style sheet -->
+   <link href="web/css/style.css" rel="stylesheet" type="text/css" /> 
+
+    <!-- /custom style sheet -->
+    <!-- fontawesome css -->
+    <link href="web/css/fontawesome-all.css" rel="stylesheet" />
+    <!-- /fontawesome css -->
+    <!-- google fonts-->
+    <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- /google fonts-->
+  <script src="web/script/viewvoucher.js"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	<style type="text/css">
+    body{
+        background-image: url(web/images/gradient.png);
+        background-size: cover;
+        background-attachment: fixed;
+    }
+	</style>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
+<script src="/__/firebase/7.2.0/firebase-auth.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.2.0/firebase-analytics.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+</head>
+  <!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="index.html" class="w3-bar-item w3-button"><b>Kiran</b> Construction and Trading Company</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <nav>
+      <a href="index1.html" class="w3-bar-item w3-button">Homepage</a>
+      <a href="home.html" class="w3-bar-item w3-button">Employee Homepage</a>
+      <a href="index1.html" class="w3-bar-item w3-button">Projects</a>
+      <a href="index1.html" class="w3-bar-item w3-button">About</a>
+      <a href="index1.html" class="w3-bar-item w3-button">Contact</a>
+      <a onclick="window.location.href='index.html'" id="logout-action" class="w3-bar-item w3-button">Logout</a>
+    </nav>
+</div>
+  </div>
+</div>
+
+<body>
+  <br><br>
+  <br>
+    <h2>Voucher List</h2>    
+<table class="w3-table w3-stripped w3-border" background-image="web/images/gradient.jpg" id="ex-table">
+      <thead>
+        <tr>
+          <th>Cost</th>
+          <th>Emp_email</th>
+          <th>Reason</th>
+          <th>Type</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="tr" class="w3-light-grey " >
+          <td id="cost"></td>
+          <td id="emp_email"></td>
+          <td id="reason"></td>
+          <td id="type"></td>
+          <td id="date"></td>
+        </tr>
+      </tbody>
+    </table>
+      
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCjeLEF-zqI0cMoYJnv-Vw0cQvlGftxX4Q",
+    authDomain: "expensetracker-ed3f6.firebaseapp.com",
+    databaseURL: "https://expensetracker-ed3f6.firebaseio.com",
+    projectId: "expensetracker-ed3f6",
+    storageBucket: "expensetracker-ed3f6.appspot.com",
+    messagingSenderId: "101415615668",
+    appId: "1:101415615668:web:8584a9ad762b6eb6e6ebe1",
+    measurementId: "G-9LFWZWC584"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var db =firebase.firestore();
+function viewVoucher() {
+  // Create the query to load the last 12 messages and listen for new ones.
+  var query = firebase.firestore().collection('voucher').orderBy('timestamp', 'desc').limit(8);
+  
+  // Start listening to the query.
+  query.onSnapshot(function(snapshot) {
+      var content='';
+      var userEmail= '';
+    snapshot.forEach(function(change) {
+      var voucher=change.data();
+      if(getUid()==voucher.uid)
+      {
+      var cost=voucher.cost;
+      var emp_email=voucher.emp_email;
+      var reason=voucher.reason;
+      var type=voucher.type;
+      var date=voucher.timestamp.toDate();
+      content += '<tr>';
+      content += '<td>' + cost + '</td>'; //column1
+      content += '<td>' + emp_email + '</td>';//column2
+      content += '<td>' + reason + '</td>';//column3
+      content += '<td>' + type + '</td>';//column4
+      content += '<td>' + date + '</td>';//column4 
+      content += '</tr>';
+       // displayMessage(change.doc.id, voucher.timestamp, voucher.approved, voucher.cost, voucher.emp_email, voucher.reson, voucher.type);
+        console.log(change.id, " => ", change.data());
+    }
+    });
+    userEmail=emp_email;
+    $('#emp-email').append(userEmail);
+    console.log("Data Displayed successfully...");
+  $('#ex-table').append(content);
+  console.log("Content successfully added in the table.");
+  }); 
+}
+ window.onload=viewVoucher;
+ // Signs-out.
+function signOut() {
+  // Sign out of Firebase.
+  firebase.auth().signOut();
+//  window.location='index.html';
+}
+document.getElementById("logout-action").addEventListener('click', signOut, false);
+// Returns the signed-in user's display name.
+function getUid() {
+  return firebase.auth().currentUser.uid;
+}
+
+</script>
+
+</body>
+</html>
