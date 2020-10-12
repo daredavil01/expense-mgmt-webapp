@@ -1,6 +1,6 @@
   // Your  web app's Firebase configuration
   /*var firebaseConfig = {
-    apiKey: "AIzaSyCjeLEF-zqI0cMoYJnv-Vw0cQvlGftxX4Q",
+    apiKey: "AIzaSyCjeLEF------------------Vw0cQvlGftxX4Q",
     authDomain: "expensetracker-ed3f6.firebaseapp.com",
     databaseURL: "https://expensetracker-ed3f6.firebaseio.com",
     projectId: "expensetracker-ed3f6",
